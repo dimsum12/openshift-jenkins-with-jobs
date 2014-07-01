@@ -71,6 +71,306 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
     </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Extractions</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Batch-Geocoding</string>
+        <string>Extraction-Boutique-Priorite-0</string>
+        <string>Extraction-Boutique-Priorite-1</string>
+        <string>Extraction-Boutique-Priorite-2</string>
+        <string>Extraction-Boutique-Priorite-3</string>
+        <string>Extraction-Boutique-Rollback</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Vérifications</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <string>Verification_raster</string>
+        <string>Verification_standard</string>
+        <string>Verification_upload</string>
+        <string>Verification_vecteur</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Publications</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+        <string>Depublication</string>
+        <string>MAJ_REF_STATIQUE_PRODUIT_AND_SERVICE_MTD</string>
+        <string>Publication</string>
+        <string>Synchronisation</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Générations</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <includeRegex>^GEN.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Rollbacks</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <includeRegex>^ROLLBACK.*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>E-commerce</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Extraction-Boutique-Priorite-0</string>
+        <string>Extraction-Boutique-Priorite-1</string>
+        <string>Extraction-Boutique-Priorite-2</string>
+        <string>Extraction-Boutique-Priorite-3</string>
+        <string>Verification_upload</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Suppressions</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Suppression_data</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Exploitation</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Exploitation - extraction check failed</string>
+        <string>Exploitation - monitor extractions</string>
+        <string>Exploitation - Occupation des caches</string>
+        <string>Exploitation - synchro entrepot_cda_services</string>
+        <string>Exploitation - synchro extraction</string>
+        <string>Generation_autocomp_PositionOfInterest_validation</string>
+        <string>Generation_autocomp_StreetAddress_validation</string>
+        <string>Generation_reverse_PositionOfInterest_validation</string>
+        <string>Generation_reverse_StreetAddress_validation</string>
+        <string>Generation_UGC_PositionOfInterest_validation</string>
+        <string>Generation_UGC_StreetAddress_validation</string>
+        <string>Synchro_portail</string>
+        <string>Synchronisation</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Integration Stats. Quarter-Daily</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[8]/jobNames/comparator"/>
+        <string>anomalies-quarter</string>
+        <string>integration-daily</string>
+        <string>integration-daily-reprise</string>
+        <string>integration-quarter-externe-wpgppe05s</string>
+        <string>integration-quarter-externe-wpgppe06s</string>
+        <string>integration-quarter-externe-wpgppe40s</string>
+        <string>integration-quarter-externe-wpgppe41s</string>
+        <string>integration-quarter-externe-wpgppe42s</string>
+        <string>integration-quarter-externe-wpgppe43s</string>
+        <string>integration-quarter-externe-wpgppe44s</string>
+        <string>integration-quarter-externe-wpgppe45s</string>
+        <string>integration-quarter-externe-wpgppe46s</string>
+        <string>integration-quarter-externe-wpgppe47s</string>
+        <string>integration-quarter-interne-wpgppi04s</string>
+        <string>integration-quarter-interne-wpgppi05s</string>
+        <string>integration-quarter-rattrapage</string>
+        <string>quarter master trigger</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>GenerationGeocodeur</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>Generation_autocomp_PositionOfInterest_validation</string>
+        <string>Generation_autocomp_StreetAddress_validation</string>
+        <string>Generation_reverse_PositionOfInterest_validation</string>
+        <string>Generation_reverse_StreetAddress_validation</string>
+        <string>Generation_UGC_PositionOfInterest_validation</string>
+        <string>Generation_UGC_StreetAddress_validation</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>RECETTE</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView[10]/jobNames/comparator"/>
+        <string>IGN_HelloWorld</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+        <org.jenkins.ci.plugins.progress__bar.ProgressBarColumn plugin="progress-bar-column-plugin@1.0"/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
   </views>
   <primaryView>All</primaryView>
   <slaveAgentPort>-1</slaveAgentPort>
