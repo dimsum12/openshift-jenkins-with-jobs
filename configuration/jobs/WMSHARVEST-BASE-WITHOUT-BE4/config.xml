@@ -47,7 +47,6 @@ les données générées sont à récupérer manuellement dans le temproaire en 
     </hudson.plugins.disk__usage.DiskUsageProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
-  <assignedNode>GENERATION</assignedNode>
   <canRoam>false</canRoam>
   <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
