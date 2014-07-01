@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@2.6">
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>GEN_METHOD</name>
+          <description>Méthode de génération des txts utilsiés pour la génération UGC. Soit les groovy Geoconcept, soit les Perl Atos de entrepôt scripts.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>atos</string>
+              <string>geoconcept</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>BRANCH</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>default</string>
+              <string>develop</string>
+              <string>mariearrondissement</string>
+              <string>sqlcursor</string>
+              <string>multicodepostaux</string>
+              <string>adresseID</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ADRESSE_SCHEMAS</name>
+          <description>Schéma de la BDAdresse à utiliser, séparés par des pipe |</description>
+          <defaultValue>bdadresse_wld_bdd_wgs84g_v4|topo_adr_taaf_bdd_wgs84g_v2</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>NYME_SCHEMA</name>
+          <description>schema de la BDTopo à utiliser pour trouver les mairies d&apos;arrondissement.</description>
+          <defaultValue>bdtopo_wld_bdd_wgs84_v4</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.1">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>HG_NAME=&quot;services-generation-geocodeur&quot;
+DIRECT_ROOT=&quot;${WORKSPACE}/${HG_NAME}/direct_reverse&quot;
+GC_ROOT=&quot;${WORKSPACE}/${HG_NAME}/groovy-direct/atos-bash&quot;
+UGC_STORE_PATH=/FILERS/i30a_sat3/geocoder/ugc/reftables/table-geocodage-direct
+UGC_TXT_ARCHIVES_PATH=/FILERS/i30a_sat3/geocoder/ugc/archives/txt/
+rm -rf ${WORKSPACE}/${HG_NAME}
+
+hg clone -r ${BRANCH} https://geoportail.forge.ign.fr/hg/${HG_NAME} ${WORKSPACE}/${HG_NAME}
+
+
+if [ &quot;$GEN_METHOD&quot; == &quot;atos&quot; ]
+then
+    cd ${DIRECT_ROOT}
+    # Generation
+    bash gen_direct_adresse.sh &quot;$ADRESSE_SCHEMAS&quot; &quot;$NYME_SCHEMA&quot;
+
+    # Copie UGC sur le FILER
+    rm -rf ${UGC_STORE_PATH}/bdadresse-direct-validation-complete.ugc ${UGC_TXT_ARCHIVES_PATH}/*txt
+    cp -pr ${DIRECT_ROOT}/gen/direct-adresse/adresse.ugc ${UGC_STORE_PATH}/bdadresse-direct-validation-complete.ugc
+    # Copie des txt pour analyse à postériori
+    cp -pr ${DIRECT_ROOT}/tmp/direct-adresse ${UGC_TXT_ARCHIVES_PATH}/
+
+   # For cron watch 
+   echo &quot;bdadresse-direct-validation-complete&quot; &gt; ${UGC_STORE_PATH}/deliveradr.please
+
+
+    # Livraison sur la prod validation
+    for MACHINE in &quot;tpgppv01s&quot; &quot;tpgppv02s&quot;
+    do
+      ssh $MACHINE &quot;sudo stop_service geocoder.ign.fr 2&gt;&amp;1&quot; 
+      ssh $MACHINE &quot;cd /MIDDLE/gpp3/geocoder.ign.fr/ugc/reftables;unlink StreetAddress.ugc;ln -s ./table-geocodage-direct/bdadresse-direct-validation-complete.ugc StreetAddress.ugc&quot;
+      ssh $MACHINE &quot;sudo start_service geocoder.ign.fr 2&gt;&amp;1&quot;
+      sleep 10
+    done
+else
+    cd ${GC_ROOT}
+    # Generation via groovy
+    bash gen_direct_addresse.sh
+
+     # Copie UGC sur le FILER
+
+fi
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.8">
+      <recipients>damien.duportal@atos.net</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

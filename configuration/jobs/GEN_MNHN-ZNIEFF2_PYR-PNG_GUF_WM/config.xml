@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>PROCESS_ID</name>
+          <description>ID for the process</description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty>
+      <diskUsageWithoutBuilds>13106</diskUsageWithoutBuilds>
+      <slaveWorkspacesUsage class="java.util.concurrent.ConcurrentHashMap"/>
+    </hudson.plugins.disk__usage.DiskUsageProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>!6N@Gpp3</authToken>
+  <triggers class="vector"/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#   The generation ID
+#   The output format for harvesting wms
+#   The style for harvesting wms
+#   The transparency for harvesting wms
+#   The bachground color for harvesting wms
+#   The image width for harvesting wms
+#   The image height for harvesting wms
+#   The .ewkt file containing a EWKT (without the extension), or directly a EWKT polygon, for harvesting wms
+#   The TMS name to use (without extension)
+#   The compression for the output datas
+#   The compression options for the output datas
+#   The images width in pixels for the output datas
+#   The images height in pixels for the output datas
+#   The bits per sample for the output datas
+#   The sample format for the output datas
+#   The photometric for the output datas
+#   The samples per pixel for the output datas
+#   The interpolation for the output datas
+#   The gamma value for the output datas
+#   The nodata color value for the output datas
+#   A boolean (&quot;true&quot; or &quot;false&quot;), indicating if the new pyramid must be constructed from an ancestor pyramid
+#   The minimum level of generation
+#   The maximum level of generation
+#   The definition for empty tile size (optionnal)
+
+# 2048x2048 : taille d&apos;une image empty 78021 octets
+# 4096x4096 : 304052
+
+bash /MIDDLE/gpp3/entrepot-outils.geoportail.fr/Exec.sh wms_harvesting &quot;$PROCESS_ID&quot; &quot;image/png&quot; &quot;line&quot; &quot;true&quot; &quot;0xFFFFFF&quot; &quot;2048&quot; &quot;2048&quot; &quot;GUF&quot; &quot;PM&quot; &quot;png&quot; &quot;none&quot; &quot;16&quot; &quot;16&quot; &quot;8&quot; &quot;uint&quot; &quot;rgb&quot; &quot;4&quot; &quot;bicubic&quot; &quot;1&quot; &quot;00000000&quot; &quot;false&quot; &quot;6&quot; &quot;16&quot; 78021</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder>
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>MIN_LEVEL=6
+MAX_LEVEL=16</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>WMSHARVEST-BASE</projects>
+          <condition>ALWAYS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <block>
+            <buildStepFailureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+            </buildStepFailureThreshold>
+            <unstableThreshold>
+              <name>UNSTABLE</name>
+              <ordinal>1</ordinal>
+              <color>YELLOW</color>
+            </unstableThreshold>
+            <failureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+            </failureThreshold>
+          </block>
+          <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
+        </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.textfinder.TextFinderPublisher>
+      <regexp>AVERTISSEMENT_SUR_PROCESSUS</regexp>
+      <succeedIfFound>false</succeedIfFound>
+      <unstableIfFound>true</unstableIfFound>
+      <alsoCheckConsoleOutput>true</alsoCheckConsoleOutput>
+    </hudson.plugins.textfinder.TextFinderPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

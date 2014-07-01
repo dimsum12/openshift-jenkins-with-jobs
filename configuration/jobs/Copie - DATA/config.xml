@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>LEVEL</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <maxConcurrentPerNode>1</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>true</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty>
+      <diskUsageWithoutBuilds>20921</diskUsageWithoutBuilds>
+      <slaveWorkspacesUsage class="java.util.concurrent.ConcurrentHashMap">
+        <entry>
+          <string>slave_p05a</string>
+          <java.util.concurrent.ConcurrentHashMap>
+            <entry>
+              <string>/MIDDLE/gpp3/orchestrateur_workspaces/slave_p05a/workspace/Copie - DATA</string>
+              <long>4096</long>
+            </entry>
+          </java.util.concurrent.ConcurrentHashMap>
+        </entry>
+      </slaveWorkspacesUsage>
+    </hudson.plugins.disk__usage.DiskUsageProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>slave_p05a</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#cd /FILERS/i19a_sas2/test-nettoyage_pyr-ngo/9697/BDPARCEL_FXX_PYR-TIFF_LAMB93_V87/IMAGE/
+#cp -r /FILERS/i14a_sat2/.snapshot/nightly.0/9697/BDPARCEL_FXX_PYR-TIFF_LAMB93_V87/IMAGE/$LEVEL/ .
+
+cd /FILERS/i19a_sas2/orchestrateur_workspaces/master_p00a/jobs/
+#bash Exec.sh test_clean
+
+
+
+
+
+
+
+
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

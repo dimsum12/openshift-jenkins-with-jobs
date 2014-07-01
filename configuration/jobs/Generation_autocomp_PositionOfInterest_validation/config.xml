@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@2.6">
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>GEN_METHOD</name>
+          <description>Méthode de génération des txts utilsiés pour la génération UGC. Soit les groovy Geoconcept, soit les Perl Atos de entrepôt scripts.
+Par défaut, si le param. est non renseigné, on utilise &apos;atos&apos;</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>atos</string>
+              <string>geoconcept</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>BRANCH</name>
+          <description>Utilisation des sources.
+Par défaut, si le param. est non renseigné, on utilise &apos;default&apos;</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>develop</string>
+              <string>default</string>
+              <string>autocompletethibbo</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SCHEMAS</name>
+          <description>Schéma BDD à utiliser, séparés par des pipe |</description>
+          <defaultValue>bdtopo_wld_bdd_wgs84_v3|topo_adr_taaf_bdd_wgs84g_v2</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.1">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>######################################################################################################
+# This script is NOT MEANT TO BE EDITED in Jenkins, it is versionned at 
+# https://geoportail.forge.ign.fr/hg/services-generation-geocodeur/direct_reverse/jenkins
+#
+# Launches the &apos;Nymes&apos; autocompletion geocode generation on production validation
+#
+# This script is meant to be executed from a jenkins job such as 
+# http://gpp3-entrepot-admin-geoportail-fr.aw.atosorigin.com/orchestrateur/view/GenerationGeocodeur/job/Generation_autocomp_PositionOfInterest_validation
+#
+#######################################################################################################
+
+HG_NAME=&quot;services-generation-geocodeur&quot;
+
+DIRECT_ROOT=&quot;${WORKSPACE}/${HG_NAME}/direct_reverse&quot;
+GROOVY_ROOT=&quot;${WORKSPACE}/${HG_NAME}/autocompletion&quot;
+
+FILER_AUTOCOMP=&quot;/FILERS/i30a_sat3/geocoder/ugc/reftables/autocomp/tables-autocomp&quot;
+
+echo &quot;----------- Cloning the repo&quot;
+rm -rf ${WORKSPACE}/${HG_NAME}
+
+# test param. BRANCH
+if [ -n &quot;${BRANCH}&quot; ]
+then
+  hg clone -r ${BRANCH} https://geoportail.forge.ign.fr/hg/${HG_NAME} ${WORKSPACE}/${HG_NAME}
+else
+  hg clone -r default https://geoportail.forge.ign.fr/hg/${HG_NAME} ${WORKSPACE}/${HG_NAME}
+fi
+
+# test param. METHOD
+if [ ! -n &quot;${GEN_METHOD}&quot; ]
+then
+  GEN_METHOD=&quot;atos&quot;
+fi
+
+# Generation
+if [ &quot;$GEN_METHOD&quot; == &quot;atos&quot; ]
+then
+
+  echo &quot;----------- Launching script PERL&quot;
+  cd ${DIRECT_ROOT}/
+  # FIXME : how to do ?
+  # RESULT=$(
+  bash gen_autocomp_nyme.sh &quot;${SCHEMAS}&quot;
+  # )
+
+else
+
+  echo &quot;----------- Launching script GROOVY&quot;
+  cd ${GROOVY_ROOT}/bash
+  # RESULT=$(
+  bash gen_autocomp_nyme.sh &quot;${GROOVY_ROOT}&quot;
+  # )
+
+fi
+
+# if [ ${RESULT} != 0 ]
+# then
+#   echo &quot;Execution FAILED !&quot;
+#   exit -1
+# fi
+  
+echo &quot;----------- Archiving (latest)&quot;
+rm -rf   ${FILER_AUTOCOMP}/archives/bdnyme-autocomp-latest
+mkdir -p ${FILER_AUTOCOMP}/archives/bdnyme-autocomp-latest
+cp -pr   ${FILER_AUTOCOMP}/bdnyme-autocomp-validation ${FILER_AUTOCOMP}/archives/bdnyme-autocomp-latest
+
+echo &quot;----------- Delivery Files&quot;
+rm -rf ${FILER_AUTOCOMP}/bdnyme-autocomp-validation
+if [ &quot;$GEN_METHOD&quot; == &quot;atos&quot; ]
+then
+  cp -pr ${DIRECT_ROOT}/gen/autocomp-nyme/PositionOfInterest ${FILER_AUTOCOMP}/bdnyme-autocomp-validation
+else
+  cp -pr ${GROOVY_ROOT}/autocompNyme ${FILER_AUTOCOMP}/bdnyme-autocomp-validation
+fi
+
+echo &quot;----------- Delivery Service (in production validation)&quot;
+for MACHINE in &quot;tpgppv01s&quot; &quot;tpgppv02s&quot;
+do
+  ssh $MACHINE &quot;sudo stop_service autocompletion.ign.fr 2&gt;&amp;1&quot; 
+  ssh $MACHINE &quot;cd /MIDDLE/gpp3/autocompletion.ign.fr/ugc/reftables/autocomp;unlink PositionOfInterest;ln -s ./tables-autocomp/bdnyme-autocomp-validation PositionOfInterest&quot;
+  ssh $MACHINE &quot;sudo start_service autocompletion.ign.fr 2&gt;&amp;1&quot;
+  sleep 10
+
+  echo &quot;----------- Testing Service Local&quot;
+  HTPP_CODE=$(curl -sL -w &quot;%{http_code}&quot; &quot;http://${MACHINE}:8046/ols/apis/completion?type=PositionOfInterest&amp;text=courceb%C5%93ufs&quot; -o /dev/null)
+  if [ ${HTPP_CODE} != 200 ]
+  then
+    echo &quot;Testing Service Local on ${MACHINE} FAILED !&quot;
+    exit -1
+  fi
+done
+
+echo &quot;----------- Testing Service Global&quot;
+HTPP_CODE=$(curl -v -XGET --proxy http://relay-gpp3-i-interco.sca.gpp.priv.atos.fr:3128 &quot;http://gpp3-wxs-v-ign-fr.aw.atosorigin.com/ols/apis/completion?type=PositionOfInterest&amp;text=courceb%C5%93ufs&quot;)
+if [ ${HTPP_CODE} != 200 ]
+  then
+    echo &quot;Testing Service Global FAILED !&quot;
+    exit -1
+  fi
+  
+echo &quot;----------- Cleaning&quot;
+rm -rf ${WORKSPACE}/*</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Détection des anomalies, et remontées d&apos;alertes + blacklistage.</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>31</daysToKeep>
+    <numToKeep>3100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@2.6">
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>DATE_LAUNCH</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.1">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>STATISTIQUES</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder plugin="parameterized-trigger@2.22">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+          </configs>
+          <projects>integration-quarter-externe-wpgppe05s,integration-quarter-externe-wpgppe06s,integration-quarter-externe-wpgppe40s,integration-quarter-externe-wpgppe41s,integration-quarter-externe-wpgppe42s,integration-quarter-externe-wpgppe43s,integration-quarter-externe-wpgppe44s,integration-quarter-externe-wpgppe45s,integration-quarter-externe-wpgppe46s,integration-quarter-externe-wpgppe47s,integration-quarter-interne-wpgppi04s,integration-quarter-interne-wpgppi05s</projects>
+          <condition>ALWAYS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <block>
+            <buildStepFailureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+              <completeBuild>true</completeBuild>
+            </buildStepFailureThreshold>
+            <unstableThreshold>
+              <name>UNSTABLE</name>
+              <ordinal>1</ordinal>
+              <color>YELLOW</color>
+              <completeBuild>true</completeBuild>
+            </unstableThreshold>
+            <failureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+              <completeBuild>true</completeBuild>
+            </failureThreshold>
+          </block>
+          <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
+        </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh
+#/home/www/.profile
+DATE_1=$(echo $DATE_LAUNCH | cut -f 1 -d &apos;_&apos;)
+DATE_2=$(echo $DATE_LAUNCH | cut -f 2 -d &apos;_&apos; | tr &apos;-&apos; &apos;:&apos;)
+DATE_ALL=&quot;$DATE_1 $DATE_2&quot;
+DATE_TS=$(date -d &quot;$DATE_ALL&quot; &quot;+%s&quot;)
+curdate=$(($DATE_TS-15*60))
+curquarter=$(($curdate - ($curdate % (15 * 60))))
+
+echo &quot;job started - curdate=${curdate} - curquarter=${curquarter}&quot;
+java -jar /MIDDLE/gpp3/stats-integration.ign.fr/app/anomalies/accesscontrol-anomaly-detection-app.jar jobContext.xml detecAnomaly quarter=$(date -d&quot;@$curquarter&quot; +\%d/\%b/\%Y\:\%H\:\%M\:\%S)
+echo &quot;job is terminated&quot;;
+date;</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>PROCESS_ID</name>
+          <description></description>
+          <defaultValue>-1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <maxConcurrentPerNode>1</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>true</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty>
+      <diskUsageWithoutBuilds>27846</diskUsageWithoutBuilds>
+      <slaveWorkspacesUsage class="java.util.concurrent.ConcurrentHashMap">
+        <entry>
+          <string>slave_p05a</string>
+          <java.util.concurrent.ConcurrentHashMap>
+            <entry>
+              <string>/MIDDLE/gpp3/orchestrateur_workspaces/slave_p05a/workspace/BE4-FINISHER</string>
+              <long>4096</long>
+            </entry>
+          </java.util.concurrent.ConcurrentHashMap>
+        </entry>
+        <entry>
+          <string>slave_p07a</string>
+          <java.util.concurrent.ConcurrentHashMap>
+            <entry>
+              <string>/MIDDLE/gpp3/orchestrateur_workspaces/slave_p07a/workspace/BE4-FINISHER</string>
+              <long>4096</long>
+            </entry>
+          </java.util.concurrent.ConcurrentHashMap>
+        </entry>
+      </slaveWorkspacesUsage>
+    </hudson.plugins.disk__usage.DiskUsageProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>heure=`date &quot;+%D %T&quot;`
+echo &quot;debut: $heure&quot;
+
+export http_proxy=http://relay-gpp3-i-interco.sca.gpp.priv.atos.fr:3128
+export PATH=$PATH&quot;:/usr/rok4/bin&quot;
+export PROJ_LIB=&quot;/usr/rok4/share/proj&quot;
+bash /FILERS/i19a_sas2/tmp/generations/$PROCESS_ID/scripts/SCRIPT_FINISHER.sh
+sortie=$?
+
+heure=`date &quot;+%D %T&quot;`
+echo &quot;fin: $heure&quot;
+
+if [[ $sortie != &quot;0&quot; ]]
+then
+    exit 1
+fi
+
+bash /MIDDLE/gpp3/entrepot-outils.geoportail.fr/Exec.sh delete_data &quot;/FILERS/i19a_sas2/tmp/generations/$PROCESS_ID&quot;</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

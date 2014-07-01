@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Ce job génère une table GCM/GCR à partir de la BDNyme et la publie en prod validation</description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>20</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>JK_SCHEMAS</name>
+          <description>Liste des schémas à traiter séparés par des virgule</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>bdtopo_fxx_bdd_rgf93g_v5</string>
+              <string>bdtopo_myt_bdd_rgm04g_v4</string>
+              <string>bdtopo_spm_bdd_rgspm06g_v5</string>
+              <string>bdtopo_guf_bdd_rgfg95g_v4</string>
+              <string>bdtopo_mtq_bdd_wgs84g_v4</string>
+              <string>bdtopo_glp_bdd_wgs84g_v4</string>
+              <string>bdtopo_reu_bdd_rgr92g_v5</string>
+              <string>topo_adr_taaf_bdd_wgs84g_v2</string>
+              <string>bdtopo_fxx_bdd_rgf93g_v5,bdtopo_myt_bdd_rgm04g_v4,bdtopo_spm_bdd_rgspm06g_v5,bdtopo_guf_bdd_rgfg95g_v4,bdtopo_mtq_bdd_wgs84g_v4,bdtopo_glp_bdd_wgs84g_v4,bdtopo_reu_bdd_rgr92g_v5,topo_adr_taaf_bdd_wgs84g_v2</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty>
+      <diskUsageWithoutBuilds>44559</diskUsageWithoutBuilds>
+      <slaveWorkspacesUsage class="java.util.concurrent.ConcurrentHashMap">
+        <entry>
+          <string>slave_p03a</string>
+          <java.util.concurrent.ConcurrentHashMap>
+            <entry>
+              <string>/MIDDLE/gpp3/orchestrateur_workspaces/slave_p03a/workspace/Generation_reverse_PositionOfInterest_validation</string>
+              <long>166233713</long>
+            </entry>
+          </java.util.concurrent.ConcurrentHashMap>
+        </entry>
+      </slaveWorkspacesUsage>
+    </hudson.plugins.disk__usage.DiskUsageProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>######################################################################################################
+# This script is NOT MEANT TO BE EDITED in Jenkins, it is versionned at 
+# https://geoportail.forge.ign.fr/hg/services-generation-geocodeur/direct_reverse/jenkins
+#
+# Launches the BDNyme reverse geocode generation
+#
+# This script is meant to be executed from a jenkins job such as 
+# http://gpp3-entrepot-admin-geoportail-fr.aw.atosorigin.com/orchestrateur/view/Exploitation/job/Generation_reverse_StreetAddress_validation/
+#
+# This script is versionned at https://geoportail.forge.ign.fr/hg/services-generation-geocodeur/reverse
+#
+# Available env var: http://gpp3-entrepot-admin-geoportail-fr.aw.atosorigin.com/orchestrateur/view/Exploitation/job/Generation_reverse_StreetAddress_validation/
+#
+# Author: Hadrien Tulipe &lt;hadrien.tulipe@atos.net&gt;
+#######################################################################################################
+
+HG_NAME=&quot;services-generation-geocodeur&quot;
+SCRIPT_ROOT=&quot;${WORKSPACE}/${HG_NAME}/direct_reverse&quot;
+MAP_STORE_PATH=/FILERS/i30a_sat3/geocoder/reversegeocoder/maps
+
+
+echo ----------- Cloning the repo
+rm -rf ${WORKSPACE}/${HG_NAME}
+hg clone -r sourcerefactorring https://geoportail.forge.ign.fr/hg/${HG_NAME} ${WORKSPACE}/${HG_NAME}
+
+cd ${SCRIPT_ROOT}
+
+echo ----------- Launching script
+
+bash gen_reverse_nyme.sh ${JK_SCHEMAS}
+
+echo ----------- Delivery
+
+# Deliver on filers
+cp -pr ${SCRIPT_ROOT}/gen/reverse-nyme/nyme.gcm ${MAP_STORE_PATH}/nyme.gcm
+cp -pr ${SCRIPT_ROOT}/gen/reverse-nyme/nyme.gcr ${MAP_STORE_PATH}/nyme.gcr
+
+# For cron watch 
+echo &quot;nyme&quot; &gt; ${MAP_STORE_PATH}/delivernyme.please
+
+cd $MAP_STORE_PATH
+unlink PositionOfInterest.gcm; 
+unlink PositionOfInterest.gcr;
+ln -s nyme.gcm PositionOfInterest.gcm;
+ln -s nyme.gcr PositionOfInterest.gcr;
+
+## Restart on prod validation
+for MACHINE in &quot;tpgppv01s&quot; &quot;tpgppv02s&quot;
+do
+	ssh $MACHINE &quot;sudo stop_service geocoder.ign.fr 2&gt;&amp;1&quot;
+	ssh $MACHINE &quot;sudo start_service geocoder.ign.fr 2&gt;&amp;1&quot;
+	sleep 10
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>hadrien.tulipe@atos.net thibault.coupin@ign.fr</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

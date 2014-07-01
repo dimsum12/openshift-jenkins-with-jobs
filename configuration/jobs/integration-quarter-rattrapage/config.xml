@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Rattrapage d&apos;intégration des logs&#xd;
+&#xd;
+(modifier le script du job pour régler les jours/machines)</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>31</daysToKeep>
+    <numToKeep>3100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty/>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@2.6">
+      <priority>1000</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.1">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh
+#/home/www/.profile
+
+#Variables de conf  :
+#####################
+
+FORMAT=&quot;%Y-%m-%d&quot;
+FILE_FORMAT=&quot;%y%m%d&quot;
+
+#Attention, pour commencer l&apos;intégration au jour N, il faut commencer (start) au jour N-1
+start=`date +$FORMAT -d &quot;2014-06-23&quot;`;
+end=`date +$FORMAT -d &quot;2014-06-25&quot;`;
+
+
+mexternes=&quot;&quot;;
+for m in {40..69}; do mexternes=$(echo &quot;${mexternes} wpgppe${m}s&quot;); done;
+
+minternes=&quot;&quot;;
+for m in {04..05}; do minternes=$(echo &quot;${minternes} wpgppi${m}s&quot;); done;
+
+logFilePrefix=&quot;/FILERS/gpp3_archived_logs/archives/&quot;;
+logFileSuffix=&quot;/logs/archives&quot;;
+
+echo &quot;###########################################&quot;
+echo &quot;Job de rattrapage des logs au quart d&apos;heure&quot;
+echo &quot;###########################################&quot;
+
+echo &quot;Le rattrapage commence à la date : ${start}&quot;
+echo &quot;Le rattrapage se termine à la date : ${end}&quot;
+
+echo &quot;Liste des machines externes :&quot;
+for m in $mexternes; do echo &quot;== ${m}&quot;;done;
+echo &quot;Liste des machines internes:&quot;
+for m in $minternes; do echo &quot;== ${m}&quot;;done;
+
+echo &quot;###########################################&quot;
+
+total=0;
+errors=0;
+now=$start
+echo &quot;&quot; &gt; javaLog.log;
+while [[ &quot;$now&quot; &lt; &quot;$end&quot; ]] ; do
+  now=`date +$FORMAT -d &quot;$now + 1 day&quot;`
+  nowFile=`date +$FILE_FORMAT -d &quot;$now&quot;`
+  echo &quot;###########################################&quot;
+  echo &quot;Traitement de la date : $now&quot;
+
+  # Externes
+  for m in ${mexternes};
+  do 
+    echo &quot;== ${m}&quot;;
+    logPath=&quot;${logFilePrefix}wxs.ign.fr/${m}${logFileSuffix}&quot;;
+    #echo &quot;${logPath}&quot;;
+    filename=access.${nowFile};
+    #echo $filename;
+    file=`find $logPath -type f -name &quot;${filename}*&quot;`;
+
+    if [ ! $? -eq 0 ]
+    then
+      echo &quot;Erreur au find&quot;;
+      exit 1;
+    else
+      #echo &quot;Résultat du find : &quot;;
+      #echo &quot;${file}&quot;
+      count=`find $logPath -type f -name &quot;${filename}*&quot; | wc -l`
+      if [ $count -eq 1 ]
+      then
+
+        echo &quot;Fchier à traiter : $file&quot;;
+        echo &quot;Lancement du job...&quot;;
+        echo &quot;###################################################################################&quot; &gt;&gt; javaLog.log;
+        echo &quot;###################################################################################&quot; &gt;&gt; javaLog.log;
+        java -jar /MIDDLE/gpp3/stats-integration.ign.fr/app/integration_quarter/accesscontrol-statistics-integration.jar jobContext.xml integrationJob log.file.path=${file} &gt;&gt; javaLog.log
+        if [ ! $? -eq 0 ]
+        then
+          errors=`expr $errors + 1`;
+        fi
+        total=`expr $total + 1`  
+
+      else
+        if [ $count -gt 1 ]
+        then
+          echo &quot;Il y a plus d&apos;un fichier : &quot;;
+          for f in $file
+          do 
+            echo &quot;Fchier à traiter : $f&quot;;
+            echo &quot;Lancement du job...&quot;;
+            echo &quot;###################################################################################&quot; &gt;&gt; javaLog.log;
+            echo &quot;###################################################################################&quot; &gt;&gt; javaLog.log;
+            java -jar /MIDDLE/gpp3/stats-integration.ign.fr/app/integration_quarter/accesscontrol-statistics-integration.jar jobContext.xml integrationJob log.file.path=${f} &gt;&gt; javaLog.log
+            if [ ! $? -eq 0 ]
+            then
+              errors=`expr $errors + 1`;
+            fi
+            total=`expr $total + 1`  
+          done
+        else
+          echo &quot;Pas de fichier trouvé ...&quot;
+        fi
+      fi
+    fi
+  done;
+
+  # Internes
+  for m in ${mint};
+  do 
+    echo &quot;== ${m}&quot;;
+    logPath=&quot;${logFilePrefix}wxs-i.ign.fr/${m}${logFileSuffix}&quot;;
+    #echo &quot;${logPath}&quot;;
+    filename=access.${nowFile};
+    #echo $filename;
+    file=`find $logPath -type f -name &quot;${filename}*&quot;`;
+
+    if [ ! $? -eq 0 ]
+    then
+      echo &quot;Erreur au find&quot;;
+      exit 1;
+    else
+      #echo &quot;Résultat du find : &quot;;
+      #echo &quot;${file}&quot;
+      count=`find $logPath -type f -name &quot;${filename}*&quot; | wc -l`
+      if [ $count -eq 1 ]
+      then
+        
+        echo &quot;Fchier à traiter : $file&quot;;
+        echo &quot;Lancement du job...&quot;;
+        echo &quot;###################################################################################&quot; &gt;&gt; javaLog.log;
+        echo &quot;###################################################################################&quot; &gt;&gt; javaLog.log;
+        /usr/java/jdk1.6.0_20/bin/java -jar /MIDDLE/gpp3/stats-integration.ign.fr/app/integration_quarter/accesscontrol-statistics-integration.jar jobContext.xml integrationJob log.file.path=${file} &gt;&gt; javaLog.log
+        if [ ! $? -eq 0 ]
+        then
+          errors=`expr $errors + 1`;
+        fi
+        total=`expr $total + 1`  
+      else
+        echo &quot;Le nombre de fichier(s) trouvé(s) n&apos;est pas 1&quot;;
+      fi
+    fi
+  done;
+done
+
+echo &quot;Terminé ! Les logs java sont disponibles dans javaLog.log&quot;
+echo &quot;Sur $total jobs, $errors sont en erreur&quot;
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.8">
+      <recipients>dlfr-ign-gpp3.expl@atos.net</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

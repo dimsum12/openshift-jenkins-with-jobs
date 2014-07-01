@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty>
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>PROCESS_ID</name>
+          <description>ID for the process</description>
+          <defaultValue>0</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty>
+      <diskUsageWithoutBuilds>13715</diskUsageWithoutBuilds>
+      <slaveWorkspacesUsage class="java.util.concurrent.ConcurrentHashMap">
+        <entry>
+          <string>slave_p04a</string>
+          <java.util.concurrent.ConcurrentHashMap>
+            <entry>
+              <string>/MIDDLE/gpp3/orchestrateur_workspaces/slave_p04a/workspace/REINITIALISATION_PP</string>
+              <long>4096</long>
+            </entry>
+          </java.util.concurrent.ConcurrentHashMap>
+        </entry>
+      </slaveWorkspacesUsage>
+    </hudson.plugins.disk__usage.DiskUsageProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>!6N@Gpp3</authToken>
+  <triggers class="vector"/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>rm -fr /FILERS/i19a_sat2/FTP/FTP-4605
+rm -fr /FILERS/i19a_sat2/FTP/FTP-5645
+rm -fr /FILERS/i19a_sat2/FTP/FTP-5944
+rm -fr /FILERS/i19a_sat2/FTP/FTP-9442
+rm -fr /FILERS/i19a_sat2/FTP/FTP-10228
+rm -fr /FILERS/i19a_sat2/FTP/FTP-14878
+rm -fr /FILERS/i19a_sat2/FTP/FTP-18596
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21493
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21500
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21511
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21537
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21572
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21627
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21711
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21727
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21736
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21849
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21852
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21863
+rm -fr /FILERS/i19a_sat2/FTP/FTP-21984
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22000
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22141
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22167
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22210
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22223
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22316
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22364
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22367
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22372
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22398
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22419
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22420
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22432
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22446
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22461
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22591
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22605
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22660
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22678
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22775
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22826
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22886
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22940
+rm -fr /FILERS/i19a_sat2/FTP/FTP-22987
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23007
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23071
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23212
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23258
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23261
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23287
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23290
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23358
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23365
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23384
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23462
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23523
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23532
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23544
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23573
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23622
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23645
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23684
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23806
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23810
+rm -fr /FILERS/i19a_sat2/FTP/FTP-23992
+rm -fr /FILERS/i19a_sat2/FTP/FTP-24051
+rm -fr /FILERS/i19a_sat2/FTP/FTP-25490
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28503
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28506
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28508
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28512
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28517
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28518
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28528
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28554
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28558
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28574
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28575
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28579
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28591
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28603
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28604
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28615
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28643
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28649
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28686
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28783
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28792
+rm -fr /FILERS/i19a_sat2/FTP/FTP-28800</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.textfinder.TextFinderPublisher>
+      <regexp>AVERTISSEMENT_SUR_PROCESSUS</regexp>
+      <succeedIfFound>false</succeedIfFound>
+      <unstableIfFound>true</unstableIfFound>
+      <alsoCheckConsoleOutput>true</alsoCheckConsoleOutput>
+    </hudson.plugins.textfinder.TextFinderPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

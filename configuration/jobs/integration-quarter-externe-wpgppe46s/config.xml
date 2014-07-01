@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Intégration des logs au quart d&apos;heure sur la machine wpgppe46s</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>31</daysToKeep>
+    <numToKeep>3100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty/>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@2.6">
+      <priority>1000</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>DATE_LAUNCH</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.1">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>STATISTIQUES</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh
+#/home/www/.profile
+
+maxtry=5;
+sleeptime=180;
+logfilepath=&quot;/FILERS/cda_logs_sas1/wxs.ign.fr/wpgppe46s/logs/access&quot;;
+
+DATE_1=$(echo $DATE_LAUNCH | cut -f 1 -d &apos;_&apos;)
+DATE_2=$(echo $DATE_LAUNCH | cut -f 2 -d &apos;_&apos; | tr &apos;-&apos; &apos;:&apos;)
+DATE_ALL=&quot;$DATE_1 $DATE_2&quot;
+DATE_TS=$(date -d &quot;$DATE_ALL&quot; &quot;+%s&quot;)
+curdate=$(($DATE_TS-15*60))
+curquarter=$(($curdate - ($curdate % (15 * 60))))
+
+
+result=1;
+try=1;
+while [ &quot;$result&quot; -ne &quot;0&quot; ] &amp;&amp; [ &quot;$try&quot; -le &quot;$maxtry&quot; ]
+do
+    echo &quot;job started - curdate=&quot;${curdate}&quot; - curquarter=&quot;${curquarter}&quot; - try=&quot;${try};
+    java -jar /MIDDLE/gpp3/stats-integration.ign.fr/app/integration_quarter/accesscontrol-statistics-integration.jar jobContext.xml integrationJobByQuarter log.file.path=$logfilepath starting.time.job=$(date -d&quot;@$curquarter&quot; +\%d/\%b/\%Y\:\%H\:\%M\:\%S);
+    result=$?;
+
+    echo &quot;job is terminated with status &quot;${result};
+    if [ &quot;$result&quot; -ne &quot;0&quot; ]
+    then
+        echo &quot;An error occured during processing&quot;;
+        try=$((try+1));
+
+        if [ &quot;$try&quot; -le &quot;$maxtry&quot; ]
+        then
+            sleep $sleeptime;
+        fi
+    fi
+done
+
+exit ${result};
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.8">
+      <recipients>dlfr-ign-gpp3.expl@atos.net</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers/>
+</project>

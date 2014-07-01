@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.queueSorter.PrioritySorterJobProperty plugin="PrioritySorter@2.6">
+      <priority>100</priority>
+    </hudson.queueSorter.PrioritySorterJobProperty>
+<hudson.model.ParametersDefinitionProperty>
+<parameterDefinitions>
+ <hudson.model.StringParameterDefinition><name>PROCESS_ID</name> 
+<description>ID for the process</description> 
+<defaultValue>0</defaultValue> 
+</hudson.model.StringParameterDefinition>
+
+ </parameterDefinitions>
+</hudson.model.ParametersDefinitionProperty>
+
+   
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.1">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.23"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>GENERATION</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>!6N@Gpp3</authToken>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># 2048x2048 : taille d'une image empty 78021 octets
+# 4096x4096 : 304052
+#1 : generation_id =  "$PROCESS_ID"                                                                  
+#2 : output_format =  "image/png"                                                                
+#3 : wms_style = " "line"                                                                           
+#4 : transparence = "true"                                                                     
+#5 : bg_color = "0xFFFFFF"                                                                            
+#6 : image_width_harvesting = "2048"                                                                    
+#7 : image_height_harvesting = "2048"                                                                                                
+#8 : polygon_wkt = "ALL_TERR_WIDE"                                                                      
+#9 : tms_name = "PM"                                                                              
+#10 : compression = "png"                                                                      
+#11 : compression_option = "none"                                                                           
+#12 : image_width = "16"                                                                     
+#13 : image_height = "16"                                                                   
+#14 : bitspersample = "8"                                                                                     
+#15 : sampleformat = "uint"                                                                    
+#16 : photometric = "rgb"                                                                     
+#17 : samplesperpixel = "4"                                                                              
+#18 : interpolation = "bicubic"                                                                                   
+#19 : gamma = "1"                                                                                  
+#20 : nodata_value = "00000000"                                                                    
+#21 : check_ancestor = "false"                                                                                   
+#22 : min_level = 10                                                                         
+#23 : max_level = 11                                                                        
+#24 : $empty_tile_size = 78021
+
+bash /MIDDLE/gpp3/entrepot-outils.geoportail.fr/Exec.sh wms_harvesting "$PROCESS_ID" "image/png" "line" "true" "0xFFFFFF" "2048" "2048" "ALL_TERR_WIDE" "PM" "png" "none" "16" "16" "8" "uint" "rgb" "4" "bicubic" "1" "0,0,0,0" "false" 12 14 78021 "false"</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder plugin="parameterized-trigger@2.22">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>MIN_LEVEL=10
+MAX_LEVEL=11</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>WMSHARVEST-BASE</projects>
+          <condition>ALWAYS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <block>
+            <buildStepFailureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+              <completeBuild>true</completeBuild>
+            </buildStepFailureThreshold>
+            <unstableThreshold>
+              <name>UNSTABLE</name>
+              <ordinal>1</ordinal>
+              <color>YELLOW</color>
+              <completeBuild>true</completeBuild>
+            </unstableThreshold>
+            <failureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+              <completeBuild>true</completeBuild>
+            </failureThreshold>
+          </block>
+          <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
+        </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+  </builders>
+  <publishers>
+    <hudson.plugins.textfinder.TextFinderPublisher plugin="text-finder@1.9">
+      <regexp>AVERTISSEMENT_SUR_PROCESSUS</regexp>
+      <succeedIfFound>false</succeedIfFound>
+      <unstableIfFound>true</unstableIfFound>
+      <alsoCheckConsoleOutput>true</alsoCheckConsoleOutput>
+    </hudson.plugins.textfinder.TextFinderPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>
