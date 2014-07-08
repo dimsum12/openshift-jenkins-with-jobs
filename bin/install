@@ -8,7 +8,7 @@ esac
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 source $OPENSHIFT_JENKINS_DIR/bin/util
 
-perl -MCPAN -e'install "LWP::Simple"'
+perl -MCPAN -e'install "Config::Simple"'
 
 function generate_ssh_keys {
     mkdir -p ${OPENSHIFT_DATA_DIR}/.ssh/
