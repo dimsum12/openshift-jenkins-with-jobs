@@ -2,7 +2,7 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 echo "Building Perl cartridge"
 
-
+cpanm -n --mirror http://mirror.ops.rhcloud.com/mirror/perl/CPAN/ -L ${OPENSHIFT_DATA_DIR}perl5lib Config::Simple
 
 LINUX_DISTRO=$(</etc/redhat-release)
 RED_HAT_DISTRO_NAME="Red Hat"
