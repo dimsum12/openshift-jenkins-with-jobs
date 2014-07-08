@@ -8,6 +8,8 @@ esac
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 source $OPENSHIFT_JENKINS_DIR/bin/util
 
+cpan install Config::Simple
+
 function generate_ssh_keys {
     mkdir -p ${OPENSHIFT_DATA_DIR}/.ssh/
     ssh-keygen -N '' -f ${OPENSHIFT_DATA_DIR}/.ssh/jenkins_id_rsa > /dev/null
