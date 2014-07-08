@@ -1,0 +1,48 @@
+###
+### Turn off policies.
+###
+
+[-Variables::ProhibitPackageVars]
+[-InputOutput::ProhibitBacktickOperators]
+[-RegularExpressions::RequireDotMatchAnything]
+[-RegularExpressions::RequireExtendedFormatting]
+[-RegularExpressions::RequireLineBoundaryMatching]
+[-RegularExpressions::ProhibitEnumeratedClasses]
+[-CodeLayout::ProhibitTrailingWhitespace]
+[-ValuesAndExpressions::ProhibitInterpolationOfLiterals]
+[-ValuesAndExpressions::ProhibitNoisyQuotes]
+[-ValuesAndExpressions::RequireNumberSeparators]
+[-ValuesAndExpressions::ProhibitEmptyQuotes]
+[-Modules::RequireBarewordIncludes]
+[-InputOutput::RequireBriefOpen]
+[-ControlStructures::ProhibitCascadingIfElse]
+[-Modules::ProhibitMultiplePackages]
+[-RegularExpressions::ProhibitEscapedMetacharacters]
+[-Subroutines::ProhibitSubroutinePrototypes]
+[-CodeLayout::RequireTrailingCommas]
+
+###
+### Change specific policies.
+###
+
+[InputOutput::RequireCheckedSyscalls]
+functions = :builtins
+exclude_functions = print chdir
+
+[Subroutines::ProhibitManyArgs]
+max_arguments = 15
+
+[Subroutines::ProhibitExcessComplexity]
+max_mccabe = 50
+
+[ValuesAndExpressions::ProhibitMagicNumbers]
+allowed_values = -1 0.5 0..255 1900 99999
+
+[Variables::ProhibitPunctuationVars]
+allow = $? $@
+
+[ControlStructures::ProhibitDeepNests]
+max_nests = 10
+
+[RegularExpressions::ProhibitComplexRegexes]
+max_characters = 100

@@ -1,0 +1,40 @@
+SET CLIENT_ENCODING TO UTF8;
+SET STANDARD_CONFORMING_STRINGS TO ON;
+BEGIN;
+CREATE TABLE "ebm_chr" (gid serial PRIMARY KEY,
+"nln" varchar(3),
+"lnm" varchar(50),
+"desc_" varchar(50));
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('FIN','Finnish','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('SWE','Swedish','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('NOR','Norwegian','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('DAN','Danish','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('KAL','Greenlandic','ISO 8859-10 character set (Latin 6)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('FAO','Faroese','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('ICE','Icelandic','ISO 8859-15 character set (Latin 9)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('ENG','English','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('EST','Estonian','ISO 8859-4 character set (Latin 4)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('LAV','Latvian','ISO 8859-4 character set (Latin 4)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('LIT','Lithuanian','ISO 8859-4 character set (Latin 4)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('FRE','French','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('GER','German','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('DUT','Dutch','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('POL','Polish','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('CZE','Czech','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('ITA','Italian','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('ROH','Romansh','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('MLT','Maltese','ISO 8859-3 character set (Latin 3)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('SLV','Slovenian','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('SCR','Croatian','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('SPA','Spanish','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('CAT','Catalan','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('POR','Portuguese','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('ALB','Albanian','ISO 8859-1 character set (Latin 1)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('GRE','Greek','ISO 8859-7 character set (Greek)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('SLO','Slovak','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('HUN','Hungarian','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('UKR','Ukrainian','ISO 8859-5 character set (Cyrillic)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('MOL','Moldavian','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('RUM','Romanian','ISO 8859-2 character set (Latin 2)');
+INSERT INTO "ebm_chr" ("nln","lnm","desc_") VALUES ('BUL','Bulgarian','ISO 8859-5 character set (Cyrillic)');
+COMMIT;

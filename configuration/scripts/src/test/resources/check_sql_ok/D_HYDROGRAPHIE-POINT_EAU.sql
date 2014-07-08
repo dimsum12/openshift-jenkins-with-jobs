@@ -1,0 +1,50 @@
+SET NAMES 'LATIN9';
+--
+-- BDUNI1.0  Ne pas effacer cette liiiiigne
+--
+start transaction;
+-- Source, point de production d'eau ou point de stockage
+--
+create table POINT_EAU (gid SERIAL not null, ID varchar(24) not null, PREC_PLANI decimal(6,1) not null, NATURE varchar(18) not null, constraint POINT_EAU_pkey primary key (gid));
+select AddGeometryColumn('','point_eau','the_geom','210642000','MULTIPOINT',3);
+create index POINT_EAU_geoidx on POINT_EAU using gist (the_geom gist_geometry_ops);
+--
+commit;
+--
+-- POINT_EAU
+start transaction;
+insert into POINT_EAU values ('1','POIN_EAU0000000069987680','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.952719 14.713523 -99.000000)'));
+insert into POINT_EAU values ('2','POIN_EAU0000000069987671','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.075669 14.729338 -99.000000)'));
+insert into POINT_EAU values ('3','POIN_EAU0000000069987661','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.946649 14.726695 -99.000000)'));
+insert into POINT_EAU values ('4','POIN_EAU0000000069987660','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.946998 14.716437 -99.000000)'));
+insert into POINT_EAU values ('5','POIN_EAU0000000069987659','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.947376 14.715835 -99.000000)'));
+insert into POINT_EAU values ('6','POIN_EAU0000000069987640','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.954177 14.732260 -99.000000)'));
+insert into POINT_EAU values ('7','POIN_EAU0000000069987621','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.017594 14.748383 -99.000000)'));
+insert into POINT_EAU values ('8','POIN_EAU0000000069987620','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.019074 14.747986 -99.000000)'));
+insert into POINT_EAU values ('9','POIN_EAU0000000069987566','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.207767 14.805914 -99.000000)'));
+insert into POINT_EAU values ('10','POIN_EAU0000000069987511','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.083728 14.819823 -99.000000)'));
+insert into POINT_EAU values ('11','POIN_EAU0000000069987505','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.068642 14.819721 -99.000000)'));
+insert into POINT_EAU values ('12','POIN_EAU0000000069987503','   1.5','Source', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.063804 14.817975 -99.000000)'));
+insert into POINT_EAU values ('13','POIN_EAU0000000069987482','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.076911 14.823528 -99.000000)'));
+insert into POINT_EAU values ('14','POIN_EAU0000000069987480','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.072754 14.821047 -99.000000)'));
+insert into POINT_EAU values ('15','POIN_EAU0000000069987479','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.071534 14.821475 -99.000000)'));
+insert into POINT_EAU values ('16','POIN_EAU0000000069987478','   1.5','Source', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.067939 14.827977 -99.000000)'));
+insert into POINT_EAU values ('17','POIN_EAU0000000069987477','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.068441 14.828952 -99.000000)'));
+insert into POINT_EAU values ('18','POIN_EAU0000000069987476','   1.5','Source', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.066432 14.830787 -99.000000)'));
+insert into POINT_EAU values ('19','POIN_EAU0000000069987475','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.062105 14.822664 -99.000000)'));
+insert into POINT_EAU values ('20','POIN_EAU0000000069987474','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.068455 14.820876 -99.000000)'));
+insert into POINT_EAU values ('21','POIN_EAU0000000069987473','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.068510 14.821818 -99.000000)'));
+insert into POINT_EAU values ('22','POIN_EAU0000000069987472','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.067044 14.823586 -99.000000)'));
+insert into POINT_EAU values ('23','POIN_EAU0000000069987470','   1.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.059303 14.825075 -99.000000)'));
+insert into POINT_EAU values ('24','POIN_EAU0000000069987457','   1.5','Fontaine', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.113076 14.846459 -99.000000)'));
+insert into POINT_EAU values ('25','POIN_EAU0000000069987443','   1.5','Citerne', GeomFromEWKT('SRID=210642000;MULTIPOINT(-61.101629 14.856445 -99.000000)'));
+insert into POINT_EAU values ('26','POIN_EAU0000000069987793','   2.5','Station de pompage', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.878953 14.432310 -99.000000)'));
+insert into POINT_EAU values ('27','POIN_EAU0000000069987792','   2.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.860102 14.423957 -99.000000)'));
+insert into POINT_EAU values ('28','POIN_EAU0000000069987791','   2.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.872039 14.440460 -99.000000)'));
+insert into POINT_EAU values ('29','POIN_EAU0000000069987790','   2.5','Station de pompage', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.881831 14.448236 -99.000000)'));
+insert into POINT_EAU values ('30','POIN_EAU0000000069987789','   2.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.850918 14.458927 -99.000000)'));
+insert into POINT_EAU values ('31','POIN_EAU0000000069987788','   2.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.939026 14.477047 -99.000000)'));
+insert into POINT_EAU values ('32','POIN_EAU0000000069987787','   2.5','Station de pompage', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.918559 14.473952 -99.000000)'));
+insert into POINT_EAU values ('33','POIN_EAU0000000069987786','   2.5','Station de pompage', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.874976 14.476122 -99.000000)'));
+insert into POINT_EAU values ('34','POIN_EAU0000000069987785','   2.5','Station de pompage', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.860288 14.472811 -99.000000)'));
+insert into POINT_EAU values ('35','POIN_EAU0000000069987784','   2.5','Autre point d\'eau', GeomFromEWKT('SRID=210642000;MULTIPOINT(-60.856253 14.467390 -99.000000)'));

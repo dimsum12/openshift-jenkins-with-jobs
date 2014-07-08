@@ -1,0 +1,1 @@
+streetName	streetAttribute	endNumberL	startNumberL	endNumberR	startNumberR	cityName	cityAttribute	cityUniqueId	X1	Y1	X2	Y2	GEOM

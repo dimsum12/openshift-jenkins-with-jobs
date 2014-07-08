@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autocomplete>
+        <general>
+                <!--Version-->
+                <version>V1</version>
+                <!--Table builder-->
+                <author>GEO CONCEPT SA</author>
+                <!--Table title-->
+                <title>Autocomple IGN</title>
+                <!--Comments-->
+                <comments>Simple reference table</comments>
+                <!--Web link-->
+                <online-resource>www.geoconcept.com</online-resource>
+                <!--Country ISO code : http://www.obs.coe.int/about/iso_3166.html-->
+                <country>FR</country>
+                <!--Char encoding-->
+                <char-encoding>1252</char-encoding>
+        </general>
+        <build>
+                <build-info-file>buildInfo.txt</build-info-file>              
+                <!--city importance file : exemple population by city-->
+                <city-weight-file>population.out</city-weight-file>           
+                <!--generated file according city-weight-file for city classifications-->
+                <city-class-file>cityClasses.txt</city-class-file>            
+                <!--abbrevialion file-->
+                <abbreviation-file>abreviations.reference.txt</abbreviation-file>   
+                <!--adress file-->
+                <address-file>adresses.out</address-file> 
+                <!--poi files : allow 100 files <poi1-file> ... <poi100-file>-->
+                <poi1-file>toponyme.out</poi1-file> 
+        </build>
+</autocomplete>

@@ -1,0 +1,13 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+File "SC1000_0050_6580_L93.tif"
+Type "RASTER"
+(50000.00,6580000.00) (0,0) Label "Pt 1",
+(600000.00,6580000.00) (5500,0) Label "Pt 2",
+(600000.00,6030000.00) (5500,5500) Label "Pt 3",
+(50000.00,6030000.00) (0,5500) Label "Pt 4"
+CoordSys Earth Projection  3,  33,  7,  3,  46.5,  44,  49,  700000,  6600000
+Units "m"

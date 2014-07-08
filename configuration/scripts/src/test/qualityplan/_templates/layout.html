@@ -1,0 +1,33 @@
+﻿{#
+    scrolls/layout.html
+    ~~~~~~~~~~~~~~~~~~~
+
+    Sphinx layout template for the scrolls theme, originally written
+    by Armin Ronacher.
+
+    :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{% extends "sphinxdoc/layout.html" %}
+{% set customsidebar = "customsidebar.html" %}
+
+
+{% block extrahead %}
+{{ super() }}
+{%- if not embedded %}
+<style type="text/css">
+  table.right { float: right; margin-left: 20px; }
+  table.right td { border: 1px solid #ccc; }
+</style>
+{%- endif %}
+{% endblock %}
+
+{% block rootrellink %}
+        <li><a href="{{ pathto(master_doc) }}">{{ project }}</a></li>
+{% endblock %}
+
+{% block header %}
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<img src="{{ pathto("_static/geoportail-logo.png", 1) }}" alt="Logo IGN" />
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.geoportail.entrepot</groupId>
+	<artifactId>entrepot_scripts</artifactId>
+	<packaging>pom</packaging>
+	<version>4.4.3</version>
+	<name>entrepot_scripts</name>
+	<url>http://maven.apache.org</url>
+	<parent>
+		<groupId>org.kazansource</groupId>
+		<artifactId>kazan-parent</artifactId>
+		<version>2</version>
+	</parent>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.kazansource.qualityplan</groupId>
+				<artifactId>qualityplan-plugin</artifactId>
+				<version>1.1-RC7</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>resthub</id>
+			<url>http://resthub.org/nexus/content/groups/resthub</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		
+		<repository>
+			<id>central</id>
+			<name>Release</name>
+			<url>https://geoportail.forge.ign.fr/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		
+		<repository>
+			<id>nexus</id>
+			<url>http://ganesh-code.mpht.priv.atos.fr/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<url>http://ganesh-code.mpht.priv.atos.fr/nexus/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

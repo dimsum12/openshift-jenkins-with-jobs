@@ -1,0 +1,14 @@
+<assembly>
+	<id>config-middle-qualif</id>
+	<!-- This package should be extracted in /WEBS/customer/service on a middle server -->
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+	    <fileSet>
+		    <directory>src/main/config/qualif/</directory>
+		    <outputDirectory>src/main/config/local</outputDirectory>
+	    </fileSet>
+	</fileSets>
+</assembly>sembly>

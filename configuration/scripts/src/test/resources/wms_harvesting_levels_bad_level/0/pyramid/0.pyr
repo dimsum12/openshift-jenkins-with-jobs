@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<Pyramid>
+    <tileMatrixSet>PM</tileMatrixSet>
+    <format>TIFF_PNG_INT8</format>
+    <channels>3</channels>
+    <nodataValue>FFFFFF</nodataValue>
+    <interpolation>bicubic</interpolation>
+    <photometric>rgb</photometric>
+    <level>
+        <tileMatrix>12</tileMatrix>
+        <baseDir>../Produit_diff_harvesting_wms_V8/IMAGE/12</baseDir>
+        <tilesPerWidth>16</tilesPerWidth>
+        <tilesPerHeight>16</tilesPerHeight>
+        <pathDepth>2</pathDepth>
+        <nodata>
+            <filePath>../Produit_diff_harvesting_wms_V8/NODATA/12/nd.tiff</filePath>
+        </nodata>
+        <TMSLimits>
+            <minTileRow>2289</minTileRow>
+            <maxTileRow>2297</maxTileRow>
+            <minTileCol>2676</minTileCol>
+            <maxTileCol>2684</maxTileCol>
+        </TMSLimits>
+    </level>
+</Pyramid>

@@ -1,0 +1,15 @@
+[PRODUCT]
+TYPe=nom du produit
+TERRITORY=nom du territoire couvert par les données sources
+PROJECTION=la projection des données sources
+FORMAT=le format des données sources (tiff, shapefile, sql)
+PARTNERNAME=nom du partenaire producteur des données sources
+
+[DIRECTORIES]
+DIR.DATA=chemin relatif du répertoire des données 
+DIR.METADATA.ISO=chemin relatif du répertoire des métadonnées ISO
+DIR.METADATA.INSPIRE=chemin relatif du répertoire des métadonnées non ISO
+
+[GENERATIONS]
+1=nom de la chaîne de génération avec des paramètres
+1.PARAMS=paramètre delachaine

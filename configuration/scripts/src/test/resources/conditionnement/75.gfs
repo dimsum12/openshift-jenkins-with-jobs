@@ -1,0 +1,24 @@
+<GMLFeatureClassList>
+  <GMLFeatureClass>
+    <Name>Layer__0</Name>
+    <ElementPath>Layer__0</ElementPath>
+    <DatasetSpecificInfo>
+      <FeatureCount>1</FeatureCount>
+      <ExtentXMin>2.22394</ExtentXMin>
+      <ExtentXMax>2.46960</ExtentXMax>
+      <ExtentYMin>48.81561</ExtentYMin>
+      <ExtentYMax>48.90165</ExtentYMax>
+    </DatasetSpecificInfo>
+    <PropertyDefn>
+      <Name>Name</Name>
+      <ElementPath>Name</ElementPath>
+      <Type>String</Type>
+      <Width>10</Width>
+    </PropertyDefn>
+    <PropertyDefn>
+      <Name>Description</Name>
+      <ElementPath>Description</ElementPath>
+      <Type>Untyped</Type>
+    </PropertyDefn>
+  </GMLFeatureClass>
+</GMLFeatureClassList>

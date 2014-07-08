@@ -1,0 +1,36 @@
+<assembly>
+  <id>middle</id>
+  <!-- This package should be extracted in /MIDDLE/customer/service on a middle server -->
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <baseDirectory></baseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory></directory>
+      <includes>
+      	<include>Exec.sh</include>
+      </includes>
+      <outputDirectory></outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>src/main/resources/</directory>
+      <excludes>
+      	<exclude>emap/**</exclude>
+      </excludes>
+      <outputDirectory>src/main/resources</outputDirectory>
+    </fileSet>    
+    <fileSet>
+      <directory>src/main/scripts/</directory>
+      <excludes>
+      	<exclude>fr/geoportail/entrepot/scripts/emap/**</exclude>
+      </excludes>
+      <outputDirectory>src/main/scripts</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>lib/</directory>
+      <outputDirectory>lib</outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>

@@ -1,0 +1,158 @@
+/*
+ * awl.css
+ * ~~~~~~~
+ *
+ * Atos Worldline stylesheet -- awl theme.
+ *
+ * :copyright: Copyright 2010 Atos Worldline
+ * :author: Loïc Frering
+ */
+ 
+@import url("basic.css");
+ 
+body {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 90%;
+    counter-reset: counter1;
+    background-color: #ccc;
+}
+
+.documentwrapper {
+    float: left;
+    width: 100%;
+}
+
+.bodywrapper {
+    margin-left: 230px;
+}
+
+div.sphinxsidebar a {
+    color: #000;
+    text-decoration: none;
+}
+
+div.sphinxsidebar a:hover {
+    text-decoration: underline;
+}
+
+div.sphinxsidebar ul {
+    margin: 10px;
+    padding: 0;
+}
+
+div.body {
+    margin: 10px;
+    padding: 4em;
+    border: 2px solid gray;
+    background-color: white;
+    -moz-box-shadow:10px 10px 5px #888;
+    box-shadow:10px 10px 5px #888;
+    -moz-border-radius: 8px;
+}
+
+div.body h1:first-child {
+    margin-top: 0;
+}
+
+div.body h1, div.body h2, div.body h3, div.body h4, div.body h5, div.body h6 {
+    color: #c00;
+}
+
+div.body h1 {
+
+}
+
+div.body h2 {
+
+    margin-left: 1em;
+}
+
+div.body h3 {
+
+    margin-left: 2em;
+}
+
+div.body h4 {
+
+    margin-left: 3em;
+}
+
+div.body h5 {
+
+    margin-left: 4em;
+}
+
+div.body h6 {
+    margin-left: 5em;
+}
+
+div.body a.headerlink {
+    color: #c00;
+    text-decoration: none;
+}
+
+div.body p {
+    text-align: justify;
+}
+
+div.body blockquote.highlights {
+    padding: 1em;
+    border: solid 1px #444;
+    background-color: #eee;
+    text-align: justify;
+}
+
+div.admonition {
+    margin: 1em 0;
+    padding: 1em;
+    -moz-box-shadow:10px 10px 5px #888;
+    box-shadow:10px 10px 5px #888;
+    -moz-border-radius: 8px;
+}
+
+div.admonition p:last-child {
+    margin-bottom: 0;
+}
+
+div.admonition-architecture {
+    border: 2px dashed blue;
+    background-color: yellow;
+}
+
+div.admonition-lbl-interrogations {
+    background-color: pink;
+}
+
+div.admonition-lbl-commentaires {
+    background-color: silver;
+}
+
+div.admonition-lbl-demande {
+    background-color: orchid;
+}
+
+.bdtrws{
+    color:darkgreen;
+    font-weight:bold;
+    background-color:silver;
+}
+
+.apfwm{
+    color:darkgreen;
+    font-weight:bold;
+    background-color:#eeffcc;
+}
+
+.apfwm{
+    color:darkgreen;
+    font-weight:bold;
+    background-color:#eeffcc;
+}
+
+.jsot{
+    background-color:chartreuse;
+}
+
+div.admonition-lfr-awl {
+    background-color: lightSkyBlue;
+}

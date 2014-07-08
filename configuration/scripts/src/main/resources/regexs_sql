@@ -1,0 +1,14 @@
+^[ ]*insert into ("\w+"|'\w+'|\w+)[ ]*(\([ ]*("\w+"|'\w+'|\w+)[ ]*(,[ ]*("\w+"|'\w+'|\w+)[ ]*)*\))?[ ]*values[ ]*\(.*\)[ ]*;[ ]*$
+^[ ]*[-]{2}.*$
+^[ ]*$
+^[ ]*create table ("\w+"|'\w+'|\w+)[ ]*\([ ]*("\w+"|'\w+'|\w+)[ ]+.+(,[ ]*("\w+"|'\w+'|\w+)[ ]+.+)*\)[ ]*;[ ]*$
+^[ ]*select addgeometrycolumn[ ]*\(([ ]*["'`]{2}[ ]*,){0,2}[ ]*["'`]\w+["'`][ ]*,[ ]*["'`]\w+["'`][ ]*,[ ]*["'`](\d+|-1)["'`][ ]*,[ ]*["'`](point|multipoint|linestring|multilinestring|polygon|multipolygon|geometrycollection)["'`][ ]*,[ ]*(1|2|3)[ ]*\)[ ]*;[ ]*$
+^[ ]*create index ["'`]*\w+["'`]* on ["'`]*\w+["'`]* using \w+[ ]*\(([ ]|\w|["'`])+\)[ ]*;[ ]*$
+^[ ]*copy ("\w+"|'\w+'|\w+)[ ]*\([ ]*("\w+"|'\w+'|\w+)[ ]*(,[ ]*("\w+"|'\w+'|\w+)[ ]*)*\)[ ]*from \w+[ ]*;[ ]*$
+^[ ]*commit[ ]*;[ ]*$
+^[ ]*start transaction[ ]*;[ ]*$
+^[ ]*set names ["'`]\w+["'`][ ]*;[ ]*$
+^[ ]*set character set ["'`]\w+["'`][ ]*;[ ]*$
+^[ ]*begin[ ]*;[ ]*$
+^[ ]*end[ ]*;[ ]*$
+^[ ]*set (standard_conforming_strings|client_encoding|escape_string_warning|default_with_oids|client_min_messages|check_function_bodies)[ ]*(to|=)[ ]*("\w+"|'\w+'|\w+)[ ]*;[ ]*$

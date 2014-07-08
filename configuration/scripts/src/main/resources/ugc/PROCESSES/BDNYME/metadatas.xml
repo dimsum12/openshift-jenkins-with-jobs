@@ -1,0 +1,77 @@
+<ugc_metadatas>
+    <!--General informations of the reference table-->
+    <general>
+        <!--Version-->
+        <version></version>
+        <!--Table builder-->
+        <author>IGN</author>
+        <!--Table title-->
+        <title>BDNYME reference table</title>
+        <!--Comments-->
+        <comments>Simple reference table</comments>
+        <!--Web link-->
+        <online-resource>www.ign.fr</online-resource>
+        <!--Country ISO code : http://www.obs.coe.int/about/iso_3166.html-->
+        <country>FR</country>
+        <!--Char encoding-->
+        <char-encoding>1252</char-encoding>
+    </general>
+    <!--Zone / code meaning-->
+    <field_meaning>
+        <!--Zone field which must match with the input city zone in UGC process-->
+        <zone-meaning></zone-meaning>
+        <!--Unique city id meaning-->
+        <unique-id-meaning></unique-id-meaning>
+        <!--Street and city output attibut meaning-->
+		<secondary-zone-meaning>Nom de commune|Code INSEE|Nom de département|Numéro du département|Nom de la région|Nom du territoire|Trigramme du territoire|Nature du toponyme|Importance|Bbox</secondary-zone-meaning>
+        <!--Street section id meaning : not used-->
+        <street-section-id-meaning></street-section-id-meaning>
+    </field_meaning>
+    <!--Coodinates informations-->
+    <geography>
+        <!--Source Coordinates system of source file-->
+        <input-coordinate-system>
+            <!--coordinates system kind-->
+            <input-source></input-source>
+            <!--coordinates system code : used to make reprojection to build the table-->
+            <input-code></input-code>
+            <!--coordinates system name-->
+            <input-name></input-name>
+            <!--coordinates system time zone param-->
+            <input-time-zone>
+            </input-time-zone>
+            <input-params>
+            </input-params>
+        </input-coordinate-system>
+        <!--Coordinates system of reference table-->
+        <coordinate-system>
+            <!--coordinates system kind-->
+            <source>epsg</source>
+            <!--coordinates system code-->
+            <code>epsg:4326</code>
+            <!--coordinates system name-->
+            <name>WGS84G</name>
+            <!--coordinates system time zone param-->
+            <time-zone>
+            </time-zone>
+            <params>
+            </params>
+        </coordinate-system>
+        <!--Reference table bounding box-->
+        <bounding-box>
+            <min-x>-180</min-x>
+            <min-y>-90</min-y>
+            <max-x>180</max-x>
+            <max-y>90</max-y>
+        </bounding-box>
+        <!--Coordinates unit-->
+        <unit>
+            <!--Coordinates unit system : M : metre, CM : centimetre-->
+            <symbol>D</symbol>
+            <!--Ratio to apply on reference table coordinates to obtain the Coordinates unit system -->
+            <precision>1</precision>
+            <!--Ratio to apply on reference table coordinates to obtain meter unit-->
+            <ratio-to-meter>111319</ratio-to-meter>
+        </unit>
+    </geography>
+</ugc_metadatas>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ArchiveTransfer xmlns="fr:gouv:ae:archive:draft:standard_echange_v0.2"
+	xmlns:ns2="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="fr:gouv:ae:archive:draft:standard_echange_v0.2 file:///tmp/xsd/archives_echanges_v0-2_archivetransfer.xsd">
+	<Date>010-12-29T14:33:30</Date>
+
+	<TransferIdentifier>?</TransferIdentifier>
+	<TransferringAgency>
+		<Identification>?</Identification>
+		<Name languageID="fr">?</Name>
+	</TransferringAgency>
+	<ArchivalAgency>
+		<Identification>?</Identification>
+		<Name languageID="fr">?</Name>
+	</ArchivalAgency>
+	<Contains>
+		<DescriptionLanguage listVersionID="edition 2009">fr
+		</DescriptionLanguage>
+		<DescriptionLevel listVersionID="edition 2009">file
+		</DescriptionLevel>
+		<Name languageID="fr">description</Name>
+		<ContentDescription>
+			<Description languageID="fr">description</Description>
+			<Language listVersionID="edition 2009">fr</Language>
+		</ContentDescription>
+	</Contains>
+</ArchiveTransfer>

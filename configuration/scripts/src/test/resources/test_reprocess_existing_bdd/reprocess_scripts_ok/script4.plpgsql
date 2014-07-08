@@ -1,0 +1,15 @@
+DECLARE
+iter :schema_initial.ebm_chr%ROWTYPE;
+BEGIN
+
+CREATE TABLE :schema_final.table4 (
+gid serial PRIMARY KEY,
+column1 character varying(50) NOT NULL);
+
+<<boucle_comm>>	
+FOR iter IN SELECT * FROM :schema_initial.ebm_chr LOOP
+
+EXECUTE 'INSERT INTO :schema_final.table4 (gid, column1) VALUES (' || iter."gid" || ', ''' || iter."lnm"|| ''');';
+
+END LOOP boucle_comm;
+END;
