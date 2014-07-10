@@ -53,7 +53,7 @@ bash Exec.sh batch_geocoding $PROCESS_ID</command>
   </builders>
   <publishers>
     <hudson.tasks.Mailer>
-      <recipients>dlfr-ign-gpp3.alertes@atos.net</recipients>
+      <recipients>mock@email.nop</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>

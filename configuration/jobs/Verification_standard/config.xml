@@ -71,7 +71,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /MIDDLE/gpp3/entrepot-outils.geoportail.fr/
+      <command>cd $OPENSHIFT_DATA_DIR/scripts
 bash Exec.sh standard_check $PROCESS_ID</command>
     </hudson.tasks.Shell>
   </builders>
