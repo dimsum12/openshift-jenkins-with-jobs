@@ -25,7 +25,7 @@ public_key=$(cat ${OPENSHIFT_DATA_DIR}/.ssh/jenkins_id_rsa.pub)
 set -- $public_key
 add_domain_ssh_key "$2"
 
-admin_password=$(generate_password)
+admin_password=adminpassword #$(generate_password)
 system_builder_password=$(generate_password)
 
 echo "system_builder" > $OPENSHIFT_JENKINS_DIR/env/JENKINS_USERNAME
